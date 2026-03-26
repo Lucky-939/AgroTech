@@ -1,0 +1,266 @@
+{% extends "base.html" %}
+
+{% block content %}
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap"
+    rel="stylesheet">
+
+<style>
+    body {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        background-color: #f8fafc;
+    }
+
+    .input-focus:focus {
+        border-color: #10b981;
+        box-shadow: 0 0 0 2px #d1fae5;
+        outline: none;
+    }
+
+    .advisory-gradient {
+        background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
+    }
+
+    .animate-reveal {
+        animation: reveal 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    @keyframes reveal {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Loading Spinner Animation */
+    .loader {
+        border: 3px solid #f3f3f3;
+        border-top: 3px solid #10b981;
+        border-radius: 50%;
+        width: 18px;
+        height: 18px;
+        animation: spin 1s linear infinite;
+        display: none;
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+
+<div class="max-w-6xl mx-auto px-4 py-12">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 border-b border-slate-200 pb-8">
+        <div>
+            <h1 class="text-4xl font-black text-slate-900 tracking-tight">
+                AI <span class="text-emerald-600">Care Advisory</span>
+            </h1>
+            <p class="text-slate-500 mt-2 text-lg font-medium">Precision agronomy based on soil and crop data.</p>
+        </div>
+        <div class="mt-4 md:mt-0">
+            <span
+                class="bg-emerald-100 text-emerald-700 px-4 py-2 rounded-full text-sm font-bold border border-emerald-200">
+                ✨ Powered by Gemini 1.5
+            </span>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div class="lg:col-span-4">
+            <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/60 p-8 border border-slate-100 sticky top-24">
+                <h3 class="text-slate-800 font-bold mb-6 flex items-center">
+                    <span class="mr-2 text-xl">📋</span> Diagnostic Data
+                </h3>
+
+                <form method="POST" class="space-y-5" id="advisoryForm">
+                    {% csrf_token %}
+                    <div onmouseenter="speak('Enter crop variety')">
+                        <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">🌾 Crop
+                            Variety</label>
+                        <div class="relative">
+                            <input type="text" name="crop" id="cropInput" placeholder="e.g. Tomato, Wheat" required
+                                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl input-focus transition-all text-slate-700 font-medium pr-12">
+                            <button type="button" onclick="startDictation('cropInput')"
+                                class="absolute right-3 top-3 text-emerald-500 hover:text-emerald-700 transition"
+                                title="Tap to speak">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div onmouseenter="speak('Enter soil profile')">
+                        <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">🌍 Soil
+                            Profile</label>
+                        <div class="relative">
+                            <input type="text" name="soil" id="soilInput" placeholder="e.g. Sandy Loam, pH 6.5"
+                                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl input-focus transition-all text-slate-700 font-medium pr-12">
+                            <button type="button" onclick="startDictation('soilInput')"
+                                class="absolute right-3 top-3 text-emerald-500 hover:text-emerald-700 transition"
+                                title="Tap to speak">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div onmouseenter="speak('Enter visible symptoms')">
+                        <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">🍂 Visible
+                            Symptoms</label>
+                        <div class="relative">
+                            <input type="text" name="disease" id="diseaseInput" placeholder="e.g. Yellowing Leaves"
+                                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl input-focus transition-all text-slate-700 font-medium pr-12">
+                            <button type="button" onclick="startDictation('diseaseInput')"
+                                class="absolute right-3 top-3 text-emerald-500 hover:text-emerald-700 transition"
+                                title="Tap to speak">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="submitBtn" onmouseenter="speak('Click to generate your advisory')"
+                        class="w-full bg-slate-900 hover:bg-emerald-600 text-white font-bold py-4 rounded-xl shadow-lg transition-all flex items-center justify-center space-x-3 mt-4">
+                        <span id="btnText">Generate Advisory</span>
+                        <div id="btnLoader" class="loader"></div>
+                        <svg id="btnIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="lg:col-span-8">
+            {% if advisory %}
+            <div class="advisory-gradient rounded-3xl shadow-2xl border border-emerald-100 p-8 md:p-12 animate-reveal">
+                <div class="flex items-center justify-between mb-8 border-b border-emerald-100 pb-6">
+                    <div class="flex items-center space-x-4">
+                        <div
+                            class="w-12 h-12 bg-emerald-500 rounded-2xl flex items-center justify-center text-white text-2xl shadow-lg">
+                            🌿
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-800">Growth Strategy</h3>
+                            <p class="text-emerald-600 text-[10px] font-bold uppercase tracking-widest">Protocol
+                                Verified</p>
+                        </div>
+                    </div>
+                    <button onclick="window.print()" onmouseenter="speak('Download or print your advisory')"
+                        class="p-2 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors"
+                        title="Download">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="prose prose-slate max-w-none">
+                    <div class="text-lg text-slate-700 leading-relaxed font-medium">
+                        {{ advisory|linebreaks }}
+                    </div>
+                </div>
+
+                <div class="mt-12 grid grid-cols-2 gap-4">
+                    <div class="bg-white/60 p-5 rounded-2xl border border-white flex flex-col items-center">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Reliability Score
+                        </p>
+                        <p class="text-emerald-600 font-black text-lg italic">High (89%)</p>
+                    </div>
+                    <div class="bg-white/60 p-5 rounded-2xl border border-white flex flex-col items-center">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Data Engine</p>
+                        <p class="text-emerald-600 font-black text-lg italic text-center">AgroTech AI</p>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div
+                class="h-full min-h-[500px] border-2 border-dashed border-slate-200 rounded-3xl flex flex-col items-center justify-center p-16 text-center text-slate-400">
+                <div class="text-7xl mb-6 opacity-20 grayscale">🚜</div>
+                <h3 class="text-xl font-bold text-slate-700 mb-2">Field Data Required</h3>
+                <p class="max-w-xs mx-auto text-sm leading-relaxed">
+                    Input your crop and soil profile on the left to generate an AI-optimized treatment and care plan.
+                </p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+    // --- Voice Features (TTS & STT) ---
+    function speak(text) {
+        if ('speechSynthesis' in window) {
+            var msg = new SpeechSynthesisUtterance();
+            msg.text = text;
+            window.speechSynthesis.cancel(); // Stop current speech
+            window.speechSynthesis.speak(msg);
+        }
+    }
+
+    function startDictation(inputId) {
+        if (window.hasOwnProperty('webkitSpeechRecognition') || window.hasOwnProperty('SpeechRecognition')) {
+            var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            var recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = "en-US"; // Setup for future localization
+
+            const inputField = document.getElementById(inputId);
+            const originalPlaceholder = inputField.placeholder;
+            inputField.placeholder = "Listening...";
+
+            recognition.start();
+
+            recognition.onresult = function (e) {
+                inputField.value = e.results[0][0].transcript;
+                inputField.placeholder = originalPlaceholder;
+                recognition.stop();
+                speak("You said: " + e.results[0][0].transcript);
+            };
+            recognition.onerror = function (e) {
+                inputField.placeholder = originalPlaceholder;
+                recognition.stop();
+            }
+        } else {
+            alert("Voice recognition is not supported in this browser.");
+        }
+    }
+
+    // Handle Loading State on Submit
+    const form = document.getElementById('advisoryForm');
+    const btnText = document.getElementById('btnText');
+    const btnLoader = document.getElementById('btnLoader');
+    const btnIcon = document.getElementById('btnIcon');
+    const submitBtn = document.getElementById('submitBtn');
+
+    form.onsubmit = function () {
+        btnText.innerText = "Analyzing...";
+        btnLoader.style.display = "block";
+        btnIcon.style.display = "none";
+        submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+    };
+</script>
+{% endblock %}

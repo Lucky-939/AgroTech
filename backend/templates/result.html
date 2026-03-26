@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .result-animation {
+        animation: scaleIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes scaleIn {
+        from {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    .confetti-bg {
+        background-image: radial-gradient(#10b981 1px, transparent 1px);
+        background-size: 20px 20px;
+        opacity: 0.05;
+    }
+</style>
+
+<div class="max-w-4xl mx-auto px-4 py-12">
+    <div
+        class="relative bg-white rounded-[40px] shadow-2xl shadow-emerald-900/10 border border-slate-100 overflow-hidden result-animation">
+
+        <div class="absolute inset-0 confetti-bg pointer-events-none"></div>
+
+        <div class="relative p-8 md:p-16 text-center">
+            <div
+                class="inline-flex items-center space-x-2 bg-emerald-50 text-emerald-700 px-4 py-2 rounded-full mb-8 border border-emerald-100">
+                <span class="relative flex h-2 w-2">
+                    <span
+                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+                <span class="text-xs font-bold uppercase tracking-widest">Optimal Match Found</span>
+            </div>
+
+            <h3 class="text-slate-400 font-semibold uppercase tracking-[0.2em] text-sm mb-4">Recommended for your Land
+            </h3>
+
+            <div class="mb-10">
+                <h1 class="text-6xl md:text-8xl font-black text-slate-900 tracking-tighter">
+                    {{ crop|capfirst }}
+                </h1>
+                <div class="w-24 h-2 bg-emerald-500 mx-auto mt-6 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                <div class="bg-slate-50 p-6 rounded-3xl border border-slate-100">
+                    <p class="text-[10px] font-bold text-slate-400 uppercase mb-1">Growth Suitability</p>
+                    <p class="text-emerald-600 font-extrabold text-xl italic">High Yield</p>
+                </div>
+                <div class="bg-slate-50 p-6 rounded-3xl border border-slate-100">
+                    <p class="text-[10px] font-bold text-slate-400 uppercase mb-1">Market Demand</p>
+                    <p class="text-slate-800 font-extrabold text-xl italic">Strong</p>
+                </div>
+                <div class="bg-slate-50 p-6 rounded-3xl border border-slate-100">
+                    <p class="text-[10px] font-bold text-slate-400 uppercase mb-1">AI Confidence</p>
+                    <p class="text-slate-800 font-extrabold text-xl italic text-center">Calculated</p>
+                </div>
+            </div>
+
+
+            <div class="max-w-md mx-auto bg-amber-50 rounded-2xl p-6 border border-amber-100 mb-6">
+                <p class="text-amber-900 text-sm leading-relaxed">
+                    <strong>Note:</strong> This recommendation is based on the specific Nitrogen, Phosphorus, and
+                    Potassium (NPK) levels and climate data provided. For best results, ensure your soil pH remains
+                    stable.
+                </p>
+            </div>
+
+            {% if advisory %}
+            <div class="max-w-2xl mx-auto bg-gradient-to-br from-emerald-50 to-white border border-emerald-100 p-8 rounded-2xl shadow-sm mb-12 text-left">
+                <h4 class="text-emerald-800 font-bold mb-4 flex items-center text-lg">
+                    <span class="mr-3">✨</span> AI Cultivation Advisory
+                </h4>
+                <div class="text-slate-700 leading-relaxed font-medium prose prose-emerald max-w-none">
+                    {{ advisory|linebreaks }}
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="/crop/"
+                    class="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-white font-bold py-4 px-10 rounded-2xl transition-all shadow-lg">
+                    New Prediction
+                </a>
+                <button onclick="window.print()"
+                    class="w-full sm:w-auto px-10 py-4 font-bold text-slate-500 hover:text-emerald-600 transition-colors flex items-center justify-center">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z">
+                        </path>
+                    </svg>
+                    Save Report
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .input-group-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #94a3b8;
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+
+    .custom-input {
+        width: 100%;
+        padding: 0.875rem 1rem;
+        background-color: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        transition: all 0.2s ease;
+        font-weight: 500;
+        color: #1e293b;
+    }
+
+    .custom-input:focus {
+        background-color: #ffffff;
+        border-color: #10b981;
+        box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+        outline: none;
+    }
+</style>
+
+<div class="max-w-4xl mx-auto px-4 py-12">
+    <div class="text-center mb-12">
+        <h1 class="text-4xl font-extrabold text-slate-900 tracking-tight">
+            🌾 Crop <span class="text-emerald-600">Optimization</span>
+        </h1>
+        <p class="text-slate-500 mt-3 text-lg">Input your soil and environmental parameters to find the ideal crop for
+            your land.</p>
+    </div>
+
+    <div class="bg-white rounded-[32px] shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden">
+        <div class="bg-emerald-600 px-8 py-4 flex items-center justify-between text-white">
+            <span class="font-bold text-sm tracking-widest uppercase">Soil & Weather Analysis</span>
+            <span class="text-xs bg-white/20 px-3 py-1 rounded-full backdrop-blur-md">Machine Learning Model v2.1</span>
+        </div>
+
+        <form method="POST" action="result/" class="p-8 md:p-12">
+            {% csrf_token %}
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+
+                <div class="space-y-6">
+                    <h3 class="text-lg font-bold text-slate-800 flex items-center">
+                        <span
+                            class="w-8 h-8 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center mr-3 text-sm">🧪</span>
+                        Soil Nutrients (NPK)
+                    </h3>
+
+                    <div class="grid grid-cols-1 gap-4">
+                        <div>
+                            <label class="input-group-label">Nitrogen (N)</label>
+                            <input type="number" step="any" name="N" placeholder="Value in mg/kg" required
+                                class="custom-input">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="input-group-label">Phosphorus (P)</label>
+                                <input type="number" step="any" name="P" placeholder="Value" required
+                                    class="custom-input">
+                            </div>
+                            <div>
+                                <label class="input-group-label">Potassium (K)</label>
+                                <input type="number" step="any" name="K" placeholder="Value" required
+                                    class="custom-input">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <h3 class="text-lg font-bold text-slate-800 flex items-center">
+                        <span
+                            class="w-8 h-8 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center mr-3 text-sm">🌤️</span>
+                        Climate Conditions
+                    </h3>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="col-span-2">
+                            <label class="input-group-label">Rainfall (mm)</label>
+                            <input type="number" step="any" name="rainfall" placeholder="Average annual" required
+                                class="custom-input">
+                        </div>
+                        <div>
+                            <label class="input-group-label">Temp (°C)</label>
+                            <input type="number" step="any" name="temperature" placeholder="24.5" required
+                                class="custom-input">
+                        </div>
+                        <div>
+                            <label class="input-group-label">Humidity (%)</label>
+                            <input type="number" step="any" name="humidity" placeholder="60" required
+                                class="custom-input">
+                        </div>
+                        <div class="col-span-2">
+                            <label class="input-group-label">Soil pH Level</label>
+                            <input type="number" step="0.1" name="ph" placeholder="0.0 - 14.0" required
+                                class="custom-input">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mt-12 pt-8 border-t border-slate-100 flex flex-col items-center">
+                <button type="submit"
+                    class="group bg-slate-900 hover:bg-emerald-600 text-white font-bold py-4 px-12 rounded-2xl transition-all shadow-lg hover:shadow-emerald-200 flex items-center space-x-3">
+                    <span>Generate Recommendation</span>
+                    <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                    </svg>
+                </button>
+                <p class="text-slate-400 text-xs mt-4">AI will process 7 parameters to determine the highest probability
+                    crop.</p>
+            </div>
+
+        </form>
+    </div>
+</div>
+{% endblock %}

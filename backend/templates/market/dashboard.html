@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block content %}
+<script src="https:
+
+    // --- Offline Mode Simulation ---
+    let isOffline = false;
+    function toggleConnection() {
+        const dot = document.getElementById('connStatusDot');
+        const textArea = document.getElementById('connStatusText');
+        
+        isOffline = !isOffline;
+        
+        if (isOffline) {
+            dot.classList.replace('bg-emerald-500', 'bg-red-500');
+            dot.classList.replace('shadow-emerald-500/50', 'shadow-red-500/50');
+            textArea.innerText = "Offline Mode (Local SQLite)";
+            textArea.classList.replace('text-slate-800', 'text-red-600');
+        } else {
+            dot.classList.replace('bg-red-500', 'bg-emerald-500');
+            dot.classList.replace('shadow-red-500/50', 'shadow-emerald-500/50');
+            textArea.innerText = "Live Data Synced";
+            textArea.classList.replace('text-red-600', 'text-slate-800');
+        }
+    }
+
+    // --- Chart.js: Price Comparison Tool ---
+    const ctx = document.getElementById('mandiChart').getContext('2d');
+    
+    // Nagpur, Akola, Amravati Wheat prices
+    const prices = [2200, 2350, 2100];
+    
+    // Find Highest and Lowest
+    const maxPrice = Math.max(...prices);
+    const minPrice = Math.min(...prices);
+    
+    const backgroundColors = prices.map(price => {
+        if (price === maxPrice) return 'rgba(52, 211, 153, 0.9)'; // Green for highest (Best)
+        if (price === minPrice) return 'rgba(248, 113, 113, 0.9)'; // Red for lowest (Worst)
+        return 'rgba(148, 163, 184, 0.5)'; // Slate for average
+    });
+
+    const mandiChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Nagpur Mandi', 'Akola Mandi', 'Amravati Mandi'],
+            datasets: [{
+                label: 'Wheat Price (₹ per Quintal)',
+                data: prices,
+                backgroundColor: backgroundColors,
+                borderRadius: 12,
+                borderSkipped: false,
+                barThickness: 50
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: '#1e293b',
+                    titleFont: { family: 'Plus Jakarta Sans', size: 14 },
+                    bodyFont: { family: 'Plus Jakarta Sans', size: 16, weight: 'bold' },
+                    padding: 12,
+                    displayColors: false,
+                    callbacks: {
+                        label: function(context) { return '₹' + context.parsed.y; }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: false,
+                    min: 1800, // Zoom in on the difference
+                    grid: { color: '#f1f5f9', drawBorder: false },
+                    ticks: { font: { family: 'Plus Jakarta Sans', weight: 'bold' } }
+                },
+                x: {
+                    grid: { display: false },
+                    ticks: { font: { family: 'Plus Jakarta Sans', weight: 'bold', size: 13 } }
+                }
+            },
+            animation: { duration: 2000, easing: 'easeOutQuart' }
+        }
+    });
+
+    // --- Visual Profit Calculator ---
+    const mandiPrice = maxPrice; // We recommend the best price
+    const fixedTransportCost = 800; // Rs
+    let currentProfit = 0;
+
+    function formatCurrency(amount) {
+        return '₹' + amount.toLocaleString('en-IN');
+    }
+
+    function calculateProfit() {
+        const bags = document.getElementById('bagSlider').value;
+        document.getElementById('bagCountDisplay').innerText = bags;
+        
+        // Equation: (Bags * Mandi Price) - Transport Cost
+        // Assuming 1 Bag = 1 Quintal for calculation simplicity
+        const revenue = bags * mandiPrice;
+        currentProfit = revenue - fixedTransportCost;
+        
+        // Floor at 0 if extremely low
+        if (currentProfit < 0) currentProfit = 0;
+        
+        document.getElementById('profitDisplay').innerText = formatCurrency(currentProfit);
+    }
+
+    function announceProfit() {
+    }
+
+    // Initialize calc
+    calculateProfit();
+</script>
+
+{% endblock %}

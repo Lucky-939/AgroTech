@@ -1,0 +1,78 @@
+:root {
+    --primary: #10b981;
+    --dark-forest: #064e3b;
+    --bg-light: #f8fafc;
+    --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+body {
+    background-color: var(--bg-light);
+    font-family: 'Inter', sans-serif;
+}
+
+/* Centered Advisor Card */
+.advisor-container {
+    max-width: 850px;
+    margin: 100px auto 40px;
+    padding: 0 20px;
+}
+
+.card-advisor {
+    background: white;
+    padding: 50px;
+    border-radius: 24px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(16, 185, 129, 0.1);
+}
+
+/* Modernized Input Group */
+.advisor-search-wrap {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-control-agro {
+    height: 60px;
+    border-radius: 16px;
+    border: 2px solid #e2e8f0;
+    padding: 0 25px;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    background-color: #f1f5f9;
+}
+
+.form-control-agro:focus {
+    background-color: white;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 5px rgba(16, 185, 129, 0.1);
+    outline: none;
+}
+
+/* AI Solution Report Styling */
+.Solution {
+    width: 100%;
+    margin-top: 4rem;
+    text-align: left;
+}
+
+.markdown-body {
+    background-color: #ffffff;
+    border-left: 6px solid var(--primary);
+    border-radius: 12px;
+    padding: 35px;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+    background-image: linear-gradient(to bottom right, #ffffff, #fdfdfd);
+}
+
+.markdown-body h2 {
+    color: var(--dark-forest);
+    font-weight: 700;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.markdown-body p, .markdown-body li {
+    font-size: 1.05rem;
+    color: #475569;
+}

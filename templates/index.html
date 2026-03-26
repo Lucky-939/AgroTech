@@ -1,0 +1,136 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>AgroTech | AI Precision Farming</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> <link rel="stylesheet" href="{% static 'css/modern.css' %}"> </head>
+
+<body>
+
+    <nav class="site-nav">
+        <div class="container">
+            <div class="d-flex align-items-center justify-content-between py-3">
+                <a href="/" class="logo m-0 h4 fw-bold text-decoration-none">
+                    <span style="color: var(--primary-green)">Agro</span>Tech<span class="text-primary">.</span>
+                </a>
+
+                <ul class="nav d-none d-lg-flex">
+                    <li><a href="/" class="nav-link text-dark fw-bold">Home</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link text-muted dropdown-toggle" href="#" data-bs-toggle="dropdown">Health Check</a>
+                        <ul class="dropdown-menu border-0 shadow-lg">
+                            <li><a class="dropdown-item" href="../predictor/1/">Wheat</a></li>
+                            <li><a class="dropdown-item" href="../predictor/2/">Rice</a></li>
+                            <li><a class="dropdown-item" href="../predictor/8/">Tomato</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="crop-recomm/" class="nav-link text-muted">Crop Recommendation</a></li>
+                    <li><a href="care_advisor/" class="nav-link text-muted">Care Advisor</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7">
+                    <div class="intro-wrap">
+                        <h1 class="display-3 mb-4">Enhance your farming with <br><span class="typed-words text-warning"></span></h1>
+                        <p class="lead mb-5 opacity-75">Harnessing AI to provide real-time crop health monitoring and precision soil analysis for the modern farmer.</p>
+
+                        <div class="card bg-white p-4 shadow-lg border-0" style="border-radius: 20px;">
+                            <form method="post" class="row g-3">
+                                {% csrf_token %}
+                                <div class="col-md-4">
+                                    <label class="form-label text-dark small fw-bold">Nitrogen (N)</label>
+                                    <input type="text" class="form-control" placeholder="Proportion" name="nitrogen">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label text-dark small fw-bold">Phosphorus (P)</label>
+                                    <input type="text" class="form-control" placeholder="Proportion" name="phosphorus">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label text-dark small fw-bold">Potassium (K)</label>
+                                    <input type="text" class="form-control" placeholder="Proportion" name="potassium">
+                                </div>
+                                <div class="col-12 mt-4">
+                                    <button type="submit" class="btn btn-primary w-100 shadow">Predict Best Crop</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5 d-none d-lg-block">
+                    <div class="slides shadow-lg" style="border-radius: 30px; overflow: hidden; border: 8px solid rgba(255,255,255,0.1);">
+                        <img src="https://agridoctor.s3.eu-north-1.amazonaws.com/black-peppercorn-8337820_1280.jpg" class="img-fluid active">
+                        <img src="https://agridoctor.s3.eu-north-1.amazonaws.com/crop-7702562_1280.jpg" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container py-5 mt-5">
+        <div class="text-center mb-5">
+            <h2 class="fw-extrabold display-5">Plants Health Check</h2>
+            <p class="text-muted">Select your crop to analyze leaf health and detect diseases.</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-6 col-md-4 col-lg-3">
+                <a href="../predictor/1/" class="plant-card">
+                    <img src="https://agridoctor.s3.eu-north-1.amazonaws.com/wheat.jpg" class="img-fluid w-100">
+                    <div class="plant-name">Wheat</div>
+                    <span class="badge bg-success-subtle text-success">Analyze Now</span>
+                </a>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+                <a href="../predictor/2/" class="plant-card">
+                    <img src="https://agridoctor.s3.eu-north-1.amazonaws.com/rice.jpg" class="img-fluid w-100">
+                    <div class="plant-name">Rice</div>
+                    <span class="badge bg-success-subtle text-success">Analyze Now</span>
+                </a>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+                <a href="../predictor/8/" class="plant-card">
+                    <img src="https://agridoctor.s3.eu-north-1.amazonaws.com/toimato.jpg" class="img-fluid w-100">
+                    <div class="plant-name">Tomato</div>
+                    <span class="badge bg-success-subtle text-success">Analyze Now</span>
+                </a>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+                <a href="../predictor/9/" class="plant-card">
+                    <img src="https://agridoctor.s3.eu-north-1.amazonaws.com/potato.png" class="img-fluid w-100">
+                    <div class="plant-name">Potato</div>
+                    <span class="badge bg-success-subtle text-success">Analyze Now</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'js/typed.js' %}"></script>
+    
+    <script>
+        $(function() {
+            var typed = new Typed('.typed-words', {
+                strings: ["AI Soil Analysis.", "Precision Health Checks.", "Smart Care Advice."],
+                typeSpeed: 60,
+                backSpeed: 40,
+                backDelay: 3000,
+                loop: true
+            });
+        });
+    </script>
+
+</body>
+</html>

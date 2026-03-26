@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<script src="https:
+
+    // Voice Dictation (Speech-to-Text)
+    function startDictation(inputId, isNumberOnly = false) {
+        if (window.hasOwnProperty('webkitSpeechRecognition') || window.hasOwnProperty('SpeechRecognition')) {
+            var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            var recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = "en-US";
+
+            const inputField = document.getElementById(inputId);
+            const originalPlaceholder = inputField.placeholder;
+            inputField.placeholder = "Listening...";
+            
+            recognition.start();
+
+            recognition.onresult = function(e) {
+                let transcript = e.results[0][0].transcript;
+                if(isNumberOnly) {
+                    transcript = transcript.replace(/\D/g,'');
+                }
+                inputField.value = transcript;
+                inputField.placeholder = originalPlaceholder;
+                recognition.stop();
+            };
+            recognition.onerror = function(e) {
+                inputField.placeholder = originalPlaceholder;
+                recognition.stop();
+            }
+        } else {
+            alert("Voice recognition is not supported in this browser.");
+        }
+    }
+</script>
+{% endblock %}

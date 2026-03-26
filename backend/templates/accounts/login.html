@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block content %}
+<script src="https:
+
+    // Voice Dictation (Speech-to-Text)
+    function startDictation(inputId) {
+        if (window.hasOwnProperty('webkitSpeechRecognition') || window.hasOwnProperty('SpeechRecognition')) {
+            var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            var recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = "en-US";
+
+            const inputField = document.getElementById(inputId);
+            const originalPlaceholder = inputField.placeholder;
+            inputField.placeholder = "Listening...";
+            
+            recognition.start();
+
+            recognition.onresult = function(e) {
+                // Removing any non-numeric characters for phone
+                let transcript = e.results[0][0].transcript;
+                if(inputId === 'phoneInput') {
+                    transcript = transcript.replace(/\D/g,'');
+                }
+                inputField.value = transcript;
+                inputField.placeholder = originalPlaceholder;
+                recognition.stop();
+            };
+            recognition.onerror = function(e) {
+                inputField.placeholder = originalPlaceholder;
+                recognition.stop();
+            }
+        } else {
+            alert("Voice recognition is not supported in this browser.");
+        }
+    }
+
+    // Biometric Login Simulation using modern WebAuthn concepts
+    function simulateBiometric() {
+        const status = document.getElementById('bioStatus');
+        const icon = document.getElementById('bioIcon');
+        const btn = document.getElementById('bioBtn');
+        
+        
+        status.innerText = "Scanning... ✨";
+        status.classList.remove('hidden');
+        status.classList.add('animate-reveal');
+        btn.classList.remove('scanner-pulse');
+        icon.style.opacity = '0.5';
+        
+        // Simulating the WebAuthn API Delay
+        setTimeout(() => {
+            if(window.PublicKeyCredential) {
+                // The device supports WebAuthn natively!
+                // For the demo we'll mock the success callback from the backend:
+                status.innerText = "Verified! ✅";
+                status.classList.replace('text-emerald-600', 'text-white');
+                status.classList.replace('bg-emerald-50', 'bg-emerald-500');
+                icon.innerText = "check_circle";
+                icon.style.opacity = '1';
+                
+                fetch("{% url 'biometric_auth' %}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify({status: 'success'})
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if(data.success) {
+                        setTimeout(() => {
+                            window.location.href = data.redirect_url;
+                        }, 800);
+                    }
+                });
+            } else {
+                alert("Biometrics not supported on this device. Fallback to password.");
+                status.classList.add('hidden');
+            }
+        }, 2000);
+    }
+</script>
+{% endblock %}
