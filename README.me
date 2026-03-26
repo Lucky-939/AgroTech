@@ -1,15 +1,29 @@
-# 🌿 AgroTech – Smart Agriculture & IoT Ecosystem
-
 <div align="center">
 
-![AgroTech Logo](https://img.shields.io/badge/AgroTech-Smart%20Farming-green?style=for-the-badge&logo=leaf&logoColor=white)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
-[![MERN Stack](https://img.shields.io/badge/MERN-Stack-green?style=for-the-badge)](https://www.mongodb.com/mern-stack)
-[![Gemini AI](https://img.shields.io/badge/Google-Gemini%20Pro-blue?style=for-the-badge&logo=google-gemini&logoColor=white)](https://ai.google.dev/)
+<br/>
 
-**🚨 An AI-powered IoT platform designed to optimize crop yields, monitor soil health, and automate irrigation for sustainable farming.**
+# 🌱 AgroTech
 
-[🚀 Quick Start](#-quick-start-guide) • [📊 Live Dashboard](#-core-capabilities) • [🤝 Contributing](#-how-to-contribute)
+### Smart Agriculture Platform — Empowering Farmers with AI & Data
+
+<br/>
+
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
+[![Django](https://img.shields.io/badge/Django-4.x-092E20?style=flat-square&logo=django&logoColor=white)](https://www.djangoproject.com/)
+[![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
+[![SCSS](https://img.shields.io/badge/SCSS-CC6699?style=flat-square&logo=sass&logoColor=white)](https://sass-lang.com/)
+[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
+
+<br/>
+
+> **AgroTech** is an intelligent web platform built to modernize Indian agriculture. It delivers data-driven crop recommendations, smart predictions, and actionable farming insights — directly in the hands of farmers.
+
+<br/>
+
+[✨ Features](#-features) · [🗂️ Project Structure](#️-project-structure) · [⚙️ Installation](#️-installation) · [🚀 Usage](#-usage) · [🤝 Contributing](#-contributing) · [📄 License](#-license)
+
+<br/>
 
 ---
 
@@ -17,98 +31,211 @@
 
 ## ✨ Features
 
-AgroTech bridges the gap between traditional farming and modern technology by leveraging **Real-time IoT Data** and **Generative AI** for predictive farming insights.
-
-### 🎯 Core Capabilities
-
-| Feature                | Description                                               | Status    |
-| ---------------------- | --------------------------------------------------------- | --------- |
-| 🌡️ **IoT Monitoring** | Real-time Soil Moisture, Temperature, and Humidity stats  | ✅ Active |
-| 🤖 **AI Crop Advisor** | Gemini-powered suggestions for fertilizers and pesticides | ✅ Active |
-| 💧 **Auto-Irrigation** | Automatic water pump control based on soil moisture levels| ✅ Active |
-| 🌦️ **Weather Forecast**| Integrated weather API for advanced harvest planning      | ✅ Active |
-| 📈 **Yield Analytics** | Data visualization for seasonal growth and crop health    | ✅ Active |
-| 🛒 **Direct Market** | Platform for farmers to list produce directly to buyers   | 🏗️ WIP    |
-
-### 🛠️ The Smart Farming Workflow
-📡 Sensors → ☁️ Cloud Data → 🤖 AI Analysis → 📱 Farmer Insights → 💧 Automated Action
-
-- **📡 IoT Sensing**: ESP32/Arduino sensors send soil and environmental data to the Node.js backend.
-- **🤖 Gemini AI Integration**: The system analyzes sensor data trends and provides "Natural Language" advice to farmers (e.g., *"Soil nitrogen is low; consider organic composting."*)
-- **⚡ Remote Control**: Farmers can toggle irrigation systems manually via the React dashboard from anywhere.
+| Module | Description |
+|---|---|
+| 🌾 **Crop Predictor** | ML-powered recommendation engine that suggests the best crop based on soil and climate parameters |
+| 📊 **Smart Datasets** | Curated agricultural datasets covering soil nutrients, rainfall, temperature, and humidity |
+| 🖥️ **Responsive Dashboard** | Clean, mobile-friendly UI built with HTML5, SCSS, and vanilla JavaScript |
+| ⚙️ **Django Backend** | Robust server-side logic handling predictions, routing, and data processing |
+| 🔒 **Secure & Scalable** | Environment-based configuration, Django ORM, and modular app architecture |
 
 ---
 
-## 📁 Project Structure
+## 🗂️ Project Structure
+
+```
+AgroTech/
+│
+├── 📂 Predictor/          # ML model logic — crop prediction engine
+│   └── ...                # Model training scripts, saved models (.pkl/.joblib)
+│
+├── 📂 backend/            # Django app — views, URLs, models, forms
+│   └── ...
+│
+├── 📂 datasets/           # Raw & processed agricultural datasets (.csv)
+│   └── ...
+│
+├── 📂 static/             # Static assets — CSS, SCSS, JS, images
+│   ├── css/
+│   ├── js/
+│   └── images/
+│
+├── 📂 templates/          # Django HTML templates — pages and partials
+│   └── ...
+│
+├── manage.py              # Django management entry point
+├── requirements.txt       # Python dependencies
+├── .gitignore
+└── README.md
+```
+
+---
+
+## 🛠️ Tech Stack
+
+**Backend**
+- [Python 3.10+](https://www.python.org/)
+- [Django](https://www.djangoproject.com/) — web framework
+- [scikit-learn](https://scikit-learn.org/) — machine learning (crop predictor)
+- [Pandas & NumPy](https://pandas.pydata.org/) — data processing
+
+**Frontend**
+- HTML5, SCSS / CSS3, JavaScript (ES6+)
+- Django Templating Engine (Jinja2-compatible)
+
+**Data**
+- Custom curated CSV datasets (soil nutrients, weather parameters, crop labels)
+
+---
+
+## ⚙️ Installation
+
+### Prerequisites
+
+Make sure you have the following installed on your system:
+
+- Python 3.10 or higher
+- pip (Python package manager)
+- Git
+
+### Step 1 — Clone the Repository
 
 ```bash
-📦 AgroTech
-├── 📂 Hardware/               # Arduino/ESP32 C++ Code for sensors
-├── 🌐 Backend/                # Node.js & Express (IoT Data Processing)
-│   ├── 🤖 controllers/       # AI logic & Sensor data handlers
-│   ├── 💾 models/            # Mongoose Schemas (SensorData, User, Crop)
-│   └── 📜 server.js
-│
-├── ⚛️ Frontend/               # React.js (Dashboard & Visualization)
-│   ├── 📁 src/
-│   │   ├── 🧩 components/    # Real-time Gauges, Charts, AI Chatbot
-│   │   └── 📄 pages/         # Dashboard, Analytics, Field Map
-│
-├── 📖 README.md
-└── 📄 LICENSE
-
-🔧 Environment Configuration
-🌐 Backend Configuration (Backend/.env)
-# 🔑 Database & Port
-MONGO_URI=your_mongodb_uri
-PORT=5000
-
-# 🤖 AI & External APIs
-GEMINI_API_KEY=your_google_gemini_api_key
-WEATHER_API_KEY=your_openweathermap_api_key
-
-🚀 Quick Start Guide
-📥 Clone the Repository
-git clone [https://github.com/Lucky-939/AgroTech.git](https://github.com/Lucky-939/AgroTech.git)
+git clone https://github.com/Lucky-939/AgroTech.git
 cd AgroTech
+```
 
-🌐 Backend & IoT API
-cd Backend
-npm install
-npm run dev
+### Step 2 — Create a Virtual Environment
 
-⚛️ Frontend Dashboard
-cd ../Frontend
-npm install
-npm run dev
+```bash
+# Create virtual environment
+python -m venv venv
 
-🛠️ Tech Stack
+# Activate — Linux/macOS
+source venv/bin/activate
+
+# Activate — Windows
+venv\Scripts\activate
+```
+
+### Step 3 — Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### Step 4 — Apply Migrations
+
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
+
+### Step 5 — Run the Development Server
+
+```bash
+python manage.py runserver
+```
+
+Open your browser and visit: **http://127.0.0.1:8000/**
+
+---
+
+## 🚀 Usage
+
+1. **Navigate** to the home page after running the server.
+2. **Enter** your field parameters — soil type, nitrogen (N), phosphorus (P), potassium (K), temperature, humidity, pH, and rainfall.
+3. **Submit** the form to receive an AI-driven crop recommendation instantly.
+4. **Explore** the dashboard to understand why a specific crop is recommended based on your local conditions.
+
+---
+
+## 🌿 How the Predictor Works
+
+```
+User Input (Soil + Climate Parameters)
+        │
+        ▼
+  Feature Preprocessing
+  (Normalization / Encoding)
+        │
+        ▼
+  Trained ML Model
+  (Random Forest / Decision Tree)
+        │
+        ▼
+  Crop Recommendation Output
+  (e.g., "Rice", "Wheat", "Cotton")
+```
+
+The `Predictor/` module contains the pre-trained model, label encoders, and a Python inference script. The Django backend calls this module to serve predictions via the web interface.
+
+---
+
+## 📁 Datasets
+
+The `datasets/` folder contains curated agricultural data with the following feature columns:
+
+| Feature | Description |
+|---|---|
+| `N` | Nitrogen content in soil (mg/kg) |
+| `P` | Phosphorus content in soil (mg/kg) |
+| `K` | Potassium content in soil (mg/kg) |
+| `temperature` | Average temperature (°C) |
+| `humidity` | Relative humidity (%) |
+| `ph` | Soil pH value |
+| `rainfall` | Annual rainfall (mm) |
+| `label` | Recommended crop (target variable) |
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome and appreciated! Here's how to get started:
+
+```bash
+# 1. Fork the repository on GitHub
+
+# 2. Clone your fork
+git clone https://github.com/YOUR-USERNAME/AgroTech.git
+
+# 3. Create a new feature branch
+git checkout -b feature/your-feature-name
+
+# 4. Make your changes and commit
+git add .
+git commit -m "feat: add your feature description"
+
+# 5. Push to your fork
+git push origin feature/your-feature-name
+
+# 6. Open a Pull Request on GitHub
+```
+
+Please ensure your code follows PEP 8 style guidelines and includes relevant comments where needed.
+
+---
+
+## 🐛 Reporting Issues
+
+Found a bug or have a suggestion? Please [open an issue](https://github.com/Lucky-939/AgroTech/issues) with:
+- A clear description of the problem
+- Steps to reproduce it
+- Expected vs. actual behaviour
+- Screenshots (if applicable)
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+
+---
+
 <div align="center">
 
-Software Stack
-Intelligence & Hardware
-</div>
+Made with ❤️ for Indian Farmers
 
-🤝 How to Contribute
-Fork the Project
-
-Create Feature Branch (git checkout -b feature/SmartSensor)
-
-Commit Changes (git commit -m 'Add SmartSensor')
-
-Push to Branch (git push origin feature/SmartSensor)
-
-Open a Pull Request
-
-📜 License
-Distributed under the MIT License. See LICENSE for details.
-
-<div align="center">
-
-⭐ Supporting Sustainable Agriculture through Tech. If you like this project, give it a star!
-
-Author: Lucky Bhoir
-🐛 Report Bug • 💡 Request Feature
+**[Lucky-939](https://github.com/Lucky-939)** · [⭐ Star this repo](https://github.com/Lucky-939/AgroTech) · [🐛 Report Bug](https://github.com/Lucky-939/AgroTech/issues) · [💡 Request Feature](https://github.com/Lucky-939/AgroTech/issues)
 
 </div>
-Since this project has an **IoT/Hardware** side, would you like me to help you write a **"Circuit Diagram"** section or a list of required sensors (like DHT11 or Soil Moisture sensors) for the hardware folder?
